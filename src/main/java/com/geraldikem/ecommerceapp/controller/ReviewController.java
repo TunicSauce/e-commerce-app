@@ -41,18 +41,14 @@ public class ReviewController {
                            RedirectAttributes redirectAttributes) {
         
         try {
-            // Check if user is authenticated
             if (authentication == null || !authentication.isAuthenticated() ||
                 authentication instanceof org.springframework.security.authentication.AnonymousAuthenticationToken) {
                 redirectAttributes.addFlashAttribute("error", "You must be logged in to leave a review.");
                 return "redirect:/products/" + productId;
             }
 
-            // Get current user
             User user = userService.findByEmail(authentication.getName())
                     .orElseThrow(() -> new IllegalArgumentException("User not found"));
-
-            // Check rate limiting - both by IP and by user
             String clientIp = getClientIpAddress(request);
             String userEmail = user.getEmail();
             

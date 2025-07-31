@@ -111,7 +111,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script th:inline="javascript">
-    const stripe = Stripe(/*[[${stripePublishableKey}]]*/ 'pk_test_placeholder');
+    const stripe = Stripe('pk_test_placeholder');
     let elements;
     let paymentElement;
 
@@ -165,14 +165,14 @@
 
         setLoading(true);
 
-        // Confirm the payment with Stripe
+
         const { error, paymentIntent } = await stripe.confirmPayment({
             elements,
             redirect: 'if_required',
         });
 
         if (error) {
-            // Payment failed
+
             console.error('Payment failed:', error);
             showMessage(error.message);
             setLoading(false);

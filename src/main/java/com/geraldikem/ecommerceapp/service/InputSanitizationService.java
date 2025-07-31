@@ -17,10 +17,10 @@ public class InputSanitizationService {
         if (input == null || input.trim().isEmpty()) {
             return input;
         }
-        
+
         // Remove script tags
         String sanitized = SCRIPT_PATTERN.matcher(input).replaceAll("");
-        
+
         // Remove javascript: protocols
         sanitized = JAVASCRIPT_PATTERN.matcher(sanitized).replaceAll("");
         
@@ -37,9 +37,7 @@ public class InputSanitizationService {
         
         // First apply HTML sanitization
         String sanitized = sanitizeHtml(input);
-        
-        // Additional SQL injection protection (basic)
-        // Note: Using parameterized queries is the primary defense, this is additional protection
+
         if (SQL_INJECTION_PATTERN.matcher(sanitized.toLowerCase()).find()) {
             throw new IllegalArgumentException("Input contains potentially dangerous content");
         }
@@ -51,14 +49,11 @@ public class InputSanitizationService {
         if (input == null) {
             return null;
         }
-        
-        // Trim whitespace
+
         String sanitized = input.trim();
-        
-        // Apply HTML sanitization
+
         sanitized = sanitizeHtml(sanitized);
-        
-        // Limit length to prevent DoS
+
         if (sanitized.length() > 5000) {
             sanitized = sanitized.substring(0, 5000);
         }
@@ -70,14 +65,11 @@ public class InputSanitizationService {
         if (fileName == null || fileName.trim().isEmpty()) {
             return fileName;
         }
-        
-        // Remove path traversal attempts
+
         String sanitized = fileName.replaceAll("[./\\\\]", "");
-        
-        // Remove non-alphanumeric characters except underscore, hyphen, and dot
+
         sanitized = sanitized.replaceAll("[^a-zA-Z0-9._-]", "");
-        
-        // Limit length
+
         if (sanitized.length() > 255) {
             sanitized = sanitized.substring(0, 255);
         }
@@ -89,8 +81,7 @@ public class InputSanitizationService {
         if (email == null || email.trim().isEmpty()) {
             return false;
         }
-        
-        // Basic email validation pattern
+
         Pattern emailPattern = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
         return emailPattern.matcher(email.trim()).matches() && email.length() <= 254;
     }

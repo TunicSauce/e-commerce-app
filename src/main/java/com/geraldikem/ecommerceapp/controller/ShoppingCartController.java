@@ -102,10 +102,8 @@ public class ShoppingCartController {
             Product product = productService.findProductById(productId)
                     .orElseThrow(() -> new IllegalArgumentException("Product not found"));
 
-            // Add to wishlist
             wishlistService.addToWishlist(user, product);
-            
-            // Remove from cart
+
             shoppingCartService.removeProductFromCart(authentication.getName(), productId, session);
             
             redirectAttributes.addFlashAttribute("successMessage", 

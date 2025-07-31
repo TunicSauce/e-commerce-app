@@ -46,7 +46,7 @@ public class Product {
     private boolean isFeatured = false;
 
     @Column(name = "estimated_delivery_days")
-    private Integer estimatedDeliveryDays = 7; // Default to 7 days
+    private Integer estimatedDeliveryDays = 7;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;

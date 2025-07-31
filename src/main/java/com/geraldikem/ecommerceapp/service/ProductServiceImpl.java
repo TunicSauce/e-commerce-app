@@ -57,7 +57,6 @@ public class ProductServiceImpl implements ProductService {
      */
     @Override
     public Page<Product> findPaginated(int pageNo, int pageSize) {
-        // Pageable is 0-indexed, so we subtract 1 from our 1-based page number.
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
         return this.productRepository.findAll(pageable);
     }
@@ -86,7 +85,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product saveProduct(Product product, MultipartFile imageFile) throws IOException {
-        // --- File Upload Logic ---
         if (imageFile != null && !imageFile.isEmpty()) {
             String uploadDir = "product-images/";
             Path uploadPath = Paths.get(uploadDir);
@@ -95,7 +93,6 @@ public class ProductServiceImpl implements ProductService {
                 Files.createDirectories(uploadPath);
             }
 
-            // Generate a unique file name
             String fileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
             Path filePath = uploadPath.resolve(fileName);
 
@@ -103,7 +100,6 @@ public class ProductServiceImpl implements ProductService {
                 Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
             }
 
-            // Set the URL path to the product
             product.setImageUrl("/product-images/" + fileName);
         }
 

@@ -24,7 +24,6 @@ public class JpaUserDetailsService implements UserDetailsService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
 
-        // Build a standard Spring Security User object from our own User entity
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),

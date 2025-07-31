@@ -38,7 +38,7 @@ public class ProfileController {
         List<Order> orders = orderService.findOrdersByUser(email);
 
         model.addAttribute("user", user);
-        model.addAttribute("orders", orders); // Add orders to the model
+        model.addAttribute("orders", orders);
         return "profile";
     }
 
@@ -46,13 +46,12 @@ public class ProfileController {
     public String updateProfile(@RequestParam String firstName,
                                 @RequestParam String lastName,
                                 Authentication authentication,
-                                HttpSession session, // Add HttpSession
+                                HttpSession session,
                                 RedirectAttributes redirectAttributes) {
         String email = authentication.getName();
         userService.updateProfile(email, firstName, lastName);
 
-        // --- NEW LOGIC ---
-        // Update the name in the session so the navbar changes immediately
+        // Updates the name in the session so the navbar changes
         session.setAttribute("userFirstName", firstName);
 
         redirectAttributes.addFlashAttribute("successMessage", "Profile updated successfully!");

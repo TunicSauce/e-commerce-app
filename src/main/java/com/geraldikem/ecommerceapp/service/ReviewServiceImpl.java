@@ -24,18 +24,16 @@ public class ReviewServiceImpl implements ReviewService {
         if (user == null || product == null) {
             return false;
         }
-        
-        // Check if user has purchased this product in a completed order
+
         List<Order> userOrders = orderRepository.findByUserOrderByOrderDateDesc(user);
         
         for (Order order : userOrders) {
-            // Only allow reviews for completed/delivered orders
             if (order.getStatus().equalsIgnoreCase("DELIVERED") || 
                 order.getStatus().equalsIgnoreCase("PROCESSING")) {
                 
                 for (OrderItem item : order.getOrderItems()) {
                     if (item.getProduct().getId().equals(product.getId())) {
-                        return true; // User has purchased this product
+                        return true;
                     }
                 }
             }
@@ -47,22 +45,21 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     @Transactional
     public Review saveReview(User user, Product product, int rating, String comment) throws IllegalStateException {
-        // Validate rating range
+
         if (rating < 1 || rating > 5) {
             throw new IllegalArgumentException("Rating must be between 1 and 5");
         }
         
-        // Check if user can review this product
+
         if (!canUserReviewProduct(user, product)) {
             throw new IllegalStateException("User is not eligible to review this product. Must have purchased it first.");
         }
         
-        // Check if user has already reviewed this product
+
         if (hasUserReviewedProduct(user, product)) {
             throw new IllegalStateException("User has already reviewed this product");
         }
-        
-        // Create and save review
+
         Review review = new Review(user, product, rating, comment);
         Review savedReview = reviewRepository.save(review);
         

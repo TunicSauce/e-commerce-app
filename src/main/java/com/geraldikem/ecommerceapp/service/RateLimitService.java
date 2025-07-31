@@ -20,14 +20,13 @@ public class RateLimitService {
         
         LocalDateTime now = LocalDateTime.now();
         
-        // Clean up old entries
+
         if (info.getLastReset().isBefore(now.minusHours(24))) {
             info.reset(now);
         } else if (info.getLastHourReset().isBefore(now.minusHours(1))) {
             info.resetHourly(now);
         }
-        
-        // Check limits
+
         if (info.getHourlyCount().get() >= MAX_REVIEWS_PER_HOUR) {
             return false;
         }
@@ -35,8 +34,7 @@ public class RateLimitService {
         if (info.getDailyCount().get() >= MAX_REVIEWS_PER_DAY) {
             return false;
         }
-        
-        // Increment counters
+
         info.getHourlyCount().incrementAndGet();
         info.getDailyCount().incrementAndGet();
         

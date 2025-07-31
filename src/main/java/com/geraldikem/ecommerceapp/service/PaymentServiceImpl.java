@@ -28,7 +28,6 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public PaymentIntent createPaymentIntent(BigDecimal amount, String currency, String customerId) throws Exception {
         try {
-            // Convert amount to cents (Stripe expects amount in smallest currency unit)
             long amountInCents = amount.multiply(BigDecimal.valueOf(100)).longValue();
             
             PaymentIntentCreateParams.Builder paramsBuilder = PaymentIntentCreateParams.builder()

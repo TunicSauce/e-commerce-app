@@ -30,23 +30,18 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
         HttpSession session = request.getSession();
         String userEmail = authentication.getName();
 
-        // Find the user to get their first name and put it in the session
         userRepository.findByEmail(userEmail).ifPresent(user -> {
             String firstName = user.getFirstName();
             session.setAttribute("userFirstName", firstName);
         });
 
-        // Merge the session cart with the user's database cart
         shoppingCartService.mergeSessionCartWithUserCart(session, userEmail);
-
-        // Check if user is admin and redirect accordingly
         if (authentication.getAuthorities().stream()
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
             response.sendRedirect("/admin/dashboard");
             return;
         }
 
-        // For regular users, redirect to home page or continue with default behavior
         response.sendRedirect("/");
     }
 }

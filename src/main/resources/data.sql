@@ -5,7 +5,6 @@ INSERT INTO roles (id, name) VALUES (2, 'ROLE_ADMIN') ON CONFLICT (id) DO NOTHIN
 
 
 -- Insert Admin User
--- The password is the BCrypt hash for "admin123"
 INSERT INTO users (id, first_name, last_name, email, password, created_at) VALUES
     (1, 'Admin', 'User', 'admin@geraldikem.com', '$2a$12$/1afRedFifGMgNkgzlk7EubDUNPz6.627RPf0mK1tIXhrabRiYfn.', NOW()) ON CONFLICT (id) DO NOTHING;
 

@@ -4,6 +4,7 @@ import com.geraldikem.ecommerceapp.model.DiscountCode;
 import java.util.List;
 
 public interface DiscountCodeService {
+
     DiscountCode createDiscountCode(DiscountCode discountCode);
     List<DiscountCode> getAllDiscountCodes();
     void toggleDiscountCodeStatus(Long id);

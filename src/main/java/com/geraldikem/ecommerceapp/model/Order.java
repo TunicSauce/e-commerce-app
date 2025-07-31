@@ -34,13 +34,15 @@ public class Order {
     @Column(nullable = false)
     private BigDecimal totalAmount;
 
-
     @Column(nullable = false)
     private String shippingAddress;
+
     @Column(nullable = false)
     private String shippingCity;
+
     @Column(nullable = false)
     private String shippingProvince;
+
     @Column(nullable = false)
     private String shippingPostalCode;
 

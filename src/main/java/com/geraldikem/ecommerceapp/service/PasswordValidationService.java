@@ -31,8 +31,7 @@ public class PasswordValidationService {
             result.addError("Password cannot be null");
             return result;
         }
-        
-        // Check length
+
         if (password.length() < MIN_LENGTH) {
             result.addError("Password must be at least " + MIN_LENGTH + " characters long");
         }
@@ -40,8 +39,7 @@ public class PasswordValidationService {
         if (password.length() > MAX_LENGTH) {
             result.addError("Password must not exceed " + MAX_LENGTH + " characters");
         }
-        
-        // Check character requirements
+
         if (!UPPERCASE_PATTERN.matcher(password).find()) {
             result.addError("Password must contain at least one uppercase letter");
         }
@@ -57,8 +55,7 @@ public class PasswordValidationService {
         if (!SPECIAL_CHAR_PATTERN.matcher(password).find()) {
             result.addError("Password must contain at least one special character (!@#$%^&*()_+-=[]{}';\":\\|,.<>/?)");
         }
-        
-        // Check for common passwords
+
         String lowerPassword = password.toLowerCase();
         for (String commonPassword : COMMON_PASSWORDS) {
             if (lowerPassword.contains(commonPassword)) {
@@ -66,13 +63,11 @@ public class PasswordValidationService {
                 break;
             }
         }
-        
-        // Check for repeated characters (more than 3 in a row)
+
         if (hasRepeatedCharacters(password, 4)) {
             result.addError("Password cannot contain more than 3 identical characters in a row");
         }
-        
-        // Check for sequential characters
+
         if (hasSequentialCharacters(password)) {
             result.addError("Password cannot contain sequential characters (like 'abcd' or '1234')");
         }
@@ -98,8 +93,7 @@ public class PasswordValidationService {
     private boolean hasSequentialCharacters(String password) {
         for (int i = 0; i <= password.length() - 4; i++) {
             String substring = password.substring(i, i + 4);
-            
-            // Check for ascending sequences
+
             boolean isAscending = true;
             for (int j = 1; j < 4; j++) {
                 if (substring.charAt(j) != substring.charAt(j - 1) + 1) {
@@ -107,8 +101,7 @@ public class PasswordValidationService {
                     break;
                 }
             }
-            
-            // Check for descending sequences
+
             boolean isDescending = true;
             for (int j = 1; j < 4; j++) {
                 if (substring.charAt(j) != substring.charAt(j - 1) - 1) {

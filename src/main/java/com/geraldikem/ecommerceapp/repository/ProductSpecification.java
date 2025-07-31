@@ -21,12 +21,10 @@ public class ProductSpecification {
                 predicates.add(criteriaBuilder.or(namePredicate, descriptionPredicate));
             }
 
-            // Add minPrice predicate
             if (minPrice != null) {
                 predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("price"), minPrice));
             }
 
-            // Add maxPrice predicate
             if (maxPrice != null) {
                 predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("price"), maxPrice));
             }

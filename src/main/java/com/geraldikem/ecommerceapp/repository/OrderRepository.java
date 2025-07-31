@@ -14,13 +14,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     List<Order> findByUserOrderByOrderDateDesc(User user);
 
-    // Custom query to calculate the sum of the totalAmount for all orders
     @Query("SELECT SUM(o.totalAmount) FROM Order o")
     BigDecimal findTotalRevenue();
 
-    // Finds the top 5 most recent orders
     List<Order> findTop5ByOrderByOrderDateDesc();
-    
-    // Finds all orders ordered by date descending
+
     List<Order> findAllByOrderByOrderDateDesc();
 }

@@ -35,14 +35,14 @@ public class Review {
     private LocalDateTime createdAt;
 
     @Column(nullable = false)
-    private boolean isModerated = false; // For future admin moderation
+    private boolean isModerated = false;
 
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
 
-    // Constructor for easy creation
+
     public Review(User user, Product product, int rating, String comment) {
         this.user = user;
         this.product = product;

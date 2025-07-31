@@ -134,7 +134,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         session.removeAttribute(APPLIED_DISCOUNT_CODE);
     }
 
-    // --- Private Helper Methods ---
 
     private ShoppingCartDto getCartDtoForUser(String userEmail) {
         User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new UsernameNotFoundException("User not found"));

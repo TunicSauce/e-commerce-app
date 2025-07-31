@@ -28,15 +28,11 @@ public class AuthController {
      */
     @GetMapping("/auth/login")
     public String customLogin(HttpServletRequest request) {
-        // Get the URL of the page the user was on before being sent to the login page
         String referrer = request.getHeader("Referer");
-
-        // If the user came from the checkout page, redirect them with a message
         if (referrer != null && referrer.contains("/checkout")) {
             return "redirect:/login?message=checkout";
         }
 
-        // Otherwise, just show the normal login page
         return "redirect:/login";
     }
 
@@ -60,7 +56,6 @@ public class AuthController {
                                     RedirectAttributes redirectAttributes,
                                     Model model) {
         try {
-            // Validate password strength
             PasswordValidationService.PasswordValidationResult validationResult = 
                 passwordValidationService.validatePassword(registrationDto.getPassword());
             
@@ -70,7 +65,6 @@ public class AuthController {
                 return "register";
             }
             
-            // Save user if password is valid
             userService.save(registrationDto);
             redirectAttributes.addFlashAttribute("success", 
                 "Registration successful! You can now log in with your credentials.");
