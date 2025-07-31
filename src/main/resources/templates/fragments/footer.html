@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<footer class="footer mt-auto py-3 bg-dark text-white" th:fragment="footer">
+  <div class="container text-center">
+    <span>&copy; <span th:text="${#dates.year(#dates.createNow())}">2025</span> Root & Branch. All Rights Reserved.</span>
+  </div>
+</footer>
+
+</body>
+</html>

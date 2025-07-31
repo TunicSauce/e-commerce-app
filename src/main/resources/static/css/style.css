@@ -1,0 +1,142 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;600&display=swap');
+
+/* Define color palette and fonts */
+:root {
+    --primary-font: 'Montserrat', sans-serif;
+    --heading-font: 'Lora', serif;
+    --dark-green: #2F4F4F;
+    --off-white: #F5F5F5;
+    --tan-accent: #D2B48C;
+    --light-gray: #DDDDDD;
+}
+
+body {
+    font-family: var(--primary-font);
+    background-color: var(--off-white);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content-wrap {
+    flex: 1;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--heading-font);
+    color: var(--dark-green);
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    position: relative;
+    height: 60vh;
+    background-image: url('https://images.unsplash.com/photo-1595064085577-7c2ef98ec311?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for text readability */
+}
+
+.hero-text {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-text h1 {
+    font-size: 3.5rem;
+    color: white;
+}
+
+.hero-text p {
+    font-size: 1.25rem;
+}
+
+
+/* --- Navigation Bar --- */
+.navbar.bg-dark {
+    background-color: var(--dark-green) !important;
+}
+
+.navbar-brand {
+    font-family: var(--heading-font);
+    font-weight: 700;
+}
+
+/* --- Buttons --- */
+.btn-primary {
+    background-color: var(--dark-green);
+    border-color: var(--dark-green);
+    font-weight: 600;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #1e3535; /* A darker shade of green */
+    border-color: #1e3535;
+}
+
+/* --- Product Cards --- */
+.card {
+    border: 1px solid var(--light-gray);
+    transition: box-shadow .3s ease-in-out, transform .3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.card-img-top {
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.card-subtitle {
+    color: var(--tan-accent) !important;
+    font-family: var(--primary-font);
+    font-weight: 600;
+}
+
+.color-swatch {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.color-swatch:hover {
+    transform: scale(1.1);
+}
+
+.color-swatch.selected {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 3px var(--dark-green);
+}
+
+/* --- Footer --- */
+.footer {
+    background-color: var(--dark-green) !important;
+}

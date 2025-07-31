@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>Navbar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="header">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/}">Root & Branch</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/products}">Products</a>
+        </li>
+        <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">
+          <a class="nav-link dropdown-toggle" th:href="@{/admin/dashboard}" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Admin
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownAdmin">
+            <li><a class="dropdown-item" th:href="@{/admin/dashboard}">Dashboard</a></li>
+            <li><a class="dropdown-item" th:href="@{/admin/products}">Manage Products</a></li>
+            <li><a class="dropdown-item" th:href="@{/admin/discounts}">Manage Discounts</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav">
+        <th:block sec:authorize="!isAuthenticated()">
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/cart}"><i class="fas fa-shopping-cart"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/login}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/register}">Register</a>
+          </li>
+        </th:block>
+
+        <th:block sec:authorize="isAuthenticated()">
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/cart}"><i class="fas fa-shopping-cart"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/wishlist}">My Wishlist</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/profile}">
+              <span th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:text="'Welcome, Admin'"></span>
+              <span th:unless="${#authorization.expression('hasRole(''ADMIN'')')}"
+                    th:text="'Welcome, ' + ${session.userFirstName}">
+                            </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/logout}">Logout</a>
+          </li>
+        </th:block>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+</body>
+</html>
