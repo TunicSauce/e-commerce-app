@@ -169,7 +169,3 @@ The application is deployed on Hostinger VPS with:
 ## 📧 Contact
 
 For questions or support, please contact: [geraldikem18@gmail.com](mailto:geraldikem18@gmail.com)
-
-## 📄 License
-
-This project is for educational and portfolio purposes.
